@@ -58,7 +58,7 @@ namespace CodingChallenge.Repositories
 
         public async Task<List<Registration>?> GetAll()
         {
-            var allUsers = await _codingChallengeContext.Registrations.ToListAsync();
+            var allUsers = await _codingChallengeContext.Registrations.Include(r => r.User).Include(r => r.Event).ToListAsync();
             if (allUsers.Count == 0)
             {
                 _loggerUserRepository.LogInformation("No Registration Returned");

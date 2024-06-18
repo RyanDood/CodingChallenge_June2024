@@ -59,7 +59,7 @@ namespace CodingChallenge.Controllers
             }
             catch (EventAlreadyExistsException e)
             {
-                return NotFound(e.Message);
+                return BadRequest(e.Message);
             }
         }
 

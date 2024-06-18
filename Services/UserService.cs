@@ -17,7 +17,7 @@ namespace CodingChallenge.Services
         public async Task<User> AddUser(User user)
         {
             var allUsers = await _usersRepository.GetAll();
-            var foundedUser = allUsers.FirstOrDefault(user => user.UserName == user.UserName);
+            var foundedUser = allUsers?.FirstOrDefault(user => user.UserName == user.UserName);
             if (foundedUser != null)
             {
                 throw new UserNameAlreadyExistsException($"UserName {user.UserName} already exists");

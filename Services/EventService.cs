@@ -17,7 +17,7 @@ namespace CodingChallenge.Services
         public async Task<Event> AddEvent(Event newEvent)
         {
             var allUsers = await _eventsRepository.GetAll();
-            var foundedUser = allUsers.FirstOrDefault(user => user.Title == newEvent.Title);
+            var foundedUser = allUsers?.FirstOrDefault(user => user.Title == newEvent.Title);
             if (foundedUser != null)
             {
                 throw new EventAlreadyExistsException($"Event {newEvent.Title} already exists");
@@ -58,7 +58,12 @@ namespace CodingChallenge.Services
         public async Task<Event> UpdateEvent(Event existingEvent)
         {
             var foundedMember = await GetEvent(existingEvent.EventID);
-            foundedMember = existingEvent;
+            foundedMember.Title = existingEvent.Title;
+            foundedMember.Description = existingEvent.Description;
+            foundedMember.Date = existingEvent.Date;
+            foundedMember.Location = existingEvent.Location;
+            foundedMember.MaxAttendees = existingEvent.MaxAttendees;
+            foundedMember.RegistrationFee = existingEvent.RegistrationFee;
             return await _eventsRepository.Update(foundedMember);
         }
     }
