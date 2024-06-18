@@ -2,16 +2,19 @@
 using CodingChallenge.Interfaces;
 using CodingChallenge.Models;
 using CodingChallenge.Models.DTOs;
+using Microsoft.Extensions.Logging;
 
 namespace CodingChallenge.Services
 {
     public class RegistrationService : IRegistrationAdminService
     {
         private readonly IRepository<int, Registration> _registrationsRepository;
+        private readonly IRepository<int, Event> _eventRepository;
 
-        public RegistrationService(IRepository<int, Registration> registrationsRepository)
+        public RegistrationService(IRepository<int, Registration> registrationsRepository, IRepository<int, Event> eventRepository)
         {
             _registrationsRepository = registrationsRepository;
+            _eventRepository = eventRepository;
         }
 
         public async Task<Registration> EventRegister(Registration registration)
@@ -21,6 +24,13 @@ namespace CodingChallenge.Services
             if (userEvents.Count != 0)
             {
                 throw new UserAlreadyRegiseredException($"You have already Registerd for this Event");
+            }
+            var allEvents1 = await _registrationsRepository.GetAll();
+            var userEvents1 = allEvents1?.Where(existingEvent => existingEvent.EventID == registration.EventID).ToList();
+            var found = await _eventRepository.Get(registration.EventID);
+            if (userEvents1.Count >= found.MaxAttendees)
+            {
+                throw new MaxExceedsException($"Event is fully booked");
             }
             return await _registrationsRepository.Add(registration);
         }

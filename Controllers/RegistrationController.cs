@@ -60,6 +60,10 @@ namespace CodingChallenge.Controllers
             {
                 return NotFound(e.Message);
             }
+            catch (MaxExceedsException e)
+            {
+                return NotFound(e.Message);
+            }
         }
     }
 }
