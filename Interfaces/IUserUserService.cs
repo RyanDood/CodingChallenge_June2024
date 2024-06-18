@@ -6,6 +6,6 @@ namespace CodingChallenge.Interfaces
     public interface IUserUserService
     {
         public Task<LoginSucessDTO> LoginUser(LoginUserDTO loginUserDTO);
-        public Task<User> AddUser(User user);
+        public Task<User> AddUser(User enteredUser);
     }
 }

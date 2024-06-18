@@ -14,15 +14,15 @@ namespace CodingChallenge.Services
             _usersRepository = usersRepository;
         }
 
-        public async Task<User> AddUser(User user)
+        public async Task<User> AddUser(User enteredUser)
         {
             var allUsers = await _usersRepository.GetAll();
-            var foundedUser = allUsers?.FirstOrDefault(user => user.UserName == user.UserName);
+            var foundedUser = allUsers?.FirstOrDefault(user => user.UserName == enteredUser.UserName);
             if (foundedUser != null)
             {
-                throw new UserNameAlreadyExistsException($"UserName {user.UserName} already exists");
+                throw new UserNameAlreadyExistsException($"UserName {enteredUser.UserName} already exists");
             }
-            return await _usersRepository.Add(user);
+            return await _usersRepository.Add(enteredUser);
         }
 
         public async Task<LoginSucessDTO> LoginUser(LoginUserDTO loginUserDTO)
