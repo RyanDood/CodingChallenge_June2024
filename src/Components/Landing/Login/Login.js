@@ -79,7 +79,7 @@ function Login(){
                     <div className="smallBox7">
                         <div className="smallBox5">
                             <span className="welcomeText2">Welcome to HexaGYM</span>
-                            <span className="welcomeText3">Welcome to HEXAGYM</span>
+                            <span className="welcomeText3">Welcome to HexaEvent</span>
                             <div>
                                 <span className="clickRegisterText">UserName</span>
                                 <input className="form-control enterDiv" type="text" value={userName} onChange={checkUserNameValidation}></input>

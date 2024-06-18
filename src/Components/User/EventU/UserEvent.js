@@ -4,12 +4,12 @@ import axios from "axios";
 
 function UserEvent(props) {
 
-    const date = new Date(props.beneficiary.date);
+    const date = new Date(props.beneficiary.event.date);
     const year = date.getFullYear();
     const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Adding 1 because months are zero-indexed
     const day = date.getDate().toString().padStart(2, '0');
     const formattedDate = year + "-" + month + "-" + day;
-    props.beneficiary.date = formattedDate;
+    props.beneficiary.event.date = formattedDate;
 
     return (
         <div className="whiteOutlineBox75">

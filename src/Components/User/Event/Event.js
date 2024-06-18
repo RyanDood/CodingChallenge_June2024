@@ -5,9 +5,7 @@ import axios from "axios";
 function Event(props) {
 
     var dispatch = useDispatch();
-    var userID = sessionStorage.getItem('memberID');
-    var eventID = useSelector((state) => state.accountID);
-
+    
 
     function updateAccountId() {
         dispatch(
@@ -18,6 +16,7 @@ function Event(props) {
 
     
     function ask(data){
+        var userID = sessionStorage.getItem('memberID');
         console.log(userID)
         console.log(data)
         var newUser = {

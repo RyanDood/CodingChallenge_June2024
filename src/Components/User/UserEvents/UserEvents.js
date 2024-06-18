@@ -13,12 +13,13 @@ function UserEvents(){
     var [beneficiaries,setBeneficiaries] = useState([]);
 
     useEffect(() => {
-        allBeneficiaries();
+        var userID = sessionStorage.getItem('memberID');
+        allBeneficiaries(userID);
     },[])
 
-    var userID = sessionStorage.getItem('memberID');
+   
 
-    async function allBeneficiaries(){
+    async function allBeneficiaries(userID){
         await axios.get('https://localhost:7147/api/Registration/GetAllEventsFromUsers?userID=' + userID).then(function (response) {
             setBeneficiaries(response.data);
             setError(false);
@@ -51,7 +52,7 @@ function UserEvents(){
                     </div> :
                     <div className="scrolling">
                         {beneficiaries.map(beneficiary =>
-                        <UserEvent key = {beneficiary.eventID} beneficiary = {beneficiary}/>
+                        <UserEvent key = {beneficiary.registrationID} beneficiary = {beneficiary}/>
                         )}
                     </div>}
                 </div>
